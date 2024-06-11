@@ -55,5 +55,7 @@ namespace POO.Clases
         /// </summary>
         /// <param name="edad"></param>
         public void SetEdad(double edad) => this.edad = edad;
+
+        public string getAll()=> cedula+" "+nombre+" "+edad;
     }
 }

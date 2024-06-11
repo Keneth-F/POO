@@ -34,5 +34,18 @@ namespace POO
             persona.SetEdad(Convert.ToDouble(textBox3.Text));
             MessageBox.Show(persona.getAll());
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Animal animal = new Animal();
+            animal.raza=textBox4.Text;
+            animal.edad= Convert.ToDouble(textBox5.Text);
+            animal.id= textBox6.Text;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

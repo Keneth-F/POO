@@ -55,22 +55,58 @@ namespace POO
 
         private void button5_Click(object sender, EventArgs e)
         {
-            animals.Add(animal);
+            animals.Add(new Animal(animal.id,animal.raza, animal.edad));
             foreach (var item in animals)
             {
                 Console.WriteLine(item);
             }
+            dataGridView1.Rows.Add(animal.id, animal.raza, animal.edad);
+
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(textBox4.Text))
             {
+
+                if (dataGridView1.SelectedCells.Count<0)
+                {
+                    DialogResult opcionUsuario = MessageBox.Show($"Desea eliminar el dia {dataGridView1.SelectedCells[0].Value}?", "Advertencia", MessageBoxButtons.YesNo);
+                    switch (opcionUsuario)
+                    {
+                        case DialogResult.Yes:
+                            var dias=animals.ToArray();
+                            for (int i = 0; i < dias.Length - 1; i++)
+                            {
+                                int idx = dataGridView1.SelectedCells[0].RowIndex;
+                                if (i >= idx)
+                                {
+                                    dias[i] = dias[i + 1];
+                                }
+                            }
+                            Array.Resize(ref dias, dias.Length - 1); 
+                            dataGridView1.Rows.Clear();
+                            foreach (var item in dias)
+                            {
+                                dataGridView1.Rows.Add(item);
+                            }
+                            break;
+                        case DialogResult.No:
+                            break;
+                    }
+                }
+                else
+                {
                 MessageBox.Show("Debes especifiar un id de animal");
+                    
+                }
+
+
+
             }
             else
             {
-                animals.RemoveAll(idAnimal => idAnimal.id == textBox4.Text);
+                animals.RemoveAll(idAnimal => idAnimal.id == textBox4.Text); 
                 Console.WriteLine("-------------------------------- Animalito eliminado---------------------------------------");
 
                 foreach (var animal in animals)
@@ -79,11 +115,17 @@ namespace POO
                     Console.WriteLine(animal.raza);
                 }
                 Console.WriteLine("--------------------------------Fin de impresión de animalitos---------------------------------------");
-
+                dataGridView1.Rows.Clear();
                 textBox4.Clear();
                 textBox5.Clear();
                 textBox6.Clear();
+                foreach (var item in animals)
+                {
+                    dataGridView1.Rows.Add(item.id, item.raza, item.edad);
+                }
+
             }
+            
         }
     }
 }

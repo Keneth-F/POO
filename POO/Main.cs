@@ -13,6 +13,9 @@ namespace POO
 {
     public partial class Main : Form
     {
+        List<Animal> animals = new List<Animal>();
+        Animal animal = new Animal();
+
         public Main()
         {
             InitializeComponent();
@@ -37,15 +40,50 @@ namespace POO
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Animal animal = new Animal();
             animal.raza=textBox4.Text;
             animal.edad= Convert.ToDouble(textBox5.Text);
             animal.id= textBox6.Text;
+            textBox4.Clear();
+            textBox5.Clear();
+            textBox6.Clear();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            animals.Add(animal);
+            foreach (var item in animals)
+            {
+                Console.WriteLine(item);
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(textBox4.Text))
+            {
+                MessageBox.Show("Debes especifiar un id de animal");
+            }
+            else
+            {
+                animals.RemoveAll(idAnimal => idAnimal.id == textBox4.Text);
+                Console.WriteLine("-------------------------------- Animalito eliminado---------------------------------------");
+
+                foreach (var animal in animals)
+                {
+
+                    Console.WriteLine(animal.raza);
+                }
+                Console.WriteLine("--------------------------------Fin de impresión de animalitos---------------------------------------");
+
+                textBox4.Clear();
+                textBox5.Clear();
+                textBox6.Clear();
+            }
         }
     }
 }
